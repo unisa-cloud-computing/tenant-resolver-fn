@@ -1,0 +1,4 @@
+/target/
+/.idea/
+local.settings.json
+**/local.settings.json
