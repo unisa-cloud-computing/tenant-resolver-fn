@@ -42,20 +42,38 @@ public class DatabaseProvisioningService {
     }
 
     public void provisionTenantDatabaseInAzureSql(String dbName, String tenantName) throws SQLException, IOException {
-        // 1. Crea il database nel server SQL e lo mette nell'Elastic Pool
-        this.sqlManager
-                .sqlServers()
-                .databases()
-                .define(dbName)
-                .withExistingSqlServer(resourceGroup, sqlServerName, sqlServerLocation)
-                .withExistingElasticPool(elasticPoolName)
-                .create();
+        boolean databaseCreated = false;
+        try {
+            // 1. Crea il database nel server SQL e lo mette nell'Elastic Pool
+            this.sqlManager
+                    .sqlServers()
+                    .databases()
+                    .define(dbName)
+                    .withExistingSqlServer(resourceGroup, sqlServerName, sqlServerLocation)
+                    .withExistingElasticPool(elasticPoolName)
+                    .create();
 
-        // 2. Costruisci la connection string JDBC verso il nuovo DB tenant
-        String tenantUrl = this.jdbcUrl.replace("database=db-catalog", "database=" + dbName);
+            databaseCreated = true;
 
-        // 3. Esegui lo script DDL
-        executeSqlScripts(tenantUrl);
+            // 2. Costruisci la connection string JDBC verso il nuovo DB tenant
+            String tenantUrl = this.jdbcUrl.replace("database=db-catalog", "database=" + dbName);
+
+            // 3. Esegui lo script DDL
+            executeSqlScripts(tenantUrl);
+        } catch (Exception ex) {
+            if (databaseCreated) {
+                try {
+                    this.sqlManager
+                            .sqlServers()
+                            .databases()
+                            .deleteBySqlServer(resourceGroup, sqlServerName, dbName);
+                } catch (Exception deleteEx) {
+                    ex.addSuppressed(deleteEx);
+                }
+            }
+            throw ex;
+        }
+
     }
 
     private void executeSqlScripts(String tenantJdbcUrl) throws SQLException, IOException {

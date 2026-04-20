@@ -3,9 +3,9 @@ DECLARE @clientId UNIQUEIDENTIFIER = '__ACA1_CLIENT_ID__';
 DECLARE @castClientId NVARCHAR(MAX) =
     CONVERT(VARCHAR(MAX), CONVERT(VARBINARY(16), @clientId), 1);
 
-DECLARE @cmd NVARCHAR(MAX) =
+DECLARE @cmd1 NVARCHAR(MAX) =
     N'CREATE USER [' + @principal_name + N'] WITH SID = ' + @castClientId + N', TYPE = E;';
-EXEC (@cmd);
+EXEC (@cmd1);
 
 DECLARE @cmdRole1 NVARCHAR(MAX) =
     N'ALTER ROLE db_datareader ADD MEMBER [' + @principal_name + N'];';
@@ -20,9 +20,9 @@ DECLARE @clientId_2 UNIQUEIDENTIFIER = '__ACA2_CLIENT_ID__';
 DECLARE @castClientId_2 NVARCHAR(MAX) =
     CONVERT(VARCHAR(MAX), CONVERT(VARBINARY(16), @clientId_2), 1);
 
-DECLARE @cmd NVARCHAR(MAX) =
+DECLARE @cmd2 NVARCHAR(MAX) =
     N'CREATE USER [' + @principal_name_2 + N'] WITH SID = ' + @castClientId_2 + N', TYPE = E;';
-EXEC (@cmd);
+EXEC (@cmd2);
 
 DECLARE @cmdRole3 NVARCHAR(MAX) =
     N'ALTER ROLE db_datareader ADD MEMBER [' + @principal_name_2 + N'];';
@@ -38,9 +38,9 @@ DECLARE @clientId_3 UNIQUEIDENTIFIER = '__ACA3_CLIENT_ID__';
 DECLARE @castClientId_3 NVARCHAR(MAX) =
     CONVERT(VARCHAR(MAX), CONVERT(VARBINARY(16), @clientId_3), 1);
 
-DECLARE @cmd NVARCHAR(MAX) =
+DECLARE @cmd3 NVARCHAR(MAX) =
     N'CREATE USER [' + @principal_name_3 + N'] WITH SID = ' + @castClientId_3 + N', TYPE = E;';
-EXEC (@cmd);
+EXEC (@cmd3);
 
 DECLARE @cmdRole5 NVARCHAR(MAX) =
     N'ALTER ROLE db_datareader ADD MEMBER [' + @principal_name_3 + N'];';
@@ -56,9 +56,9 @@ DECLARE @clientId_4 UNIQUEIDENTIFIER = '__ACA4_CLIENT_ID__';
 DECLARE @castClientId_4 NVARCHAR(MAX) =
     CONVERT(VARCHAR(MAX), CONVERT(VARBINARY(16), @clientId_4), 1);
 
-DECLARE @cmd NVARCHAR(MAX) =
+DECLARE @cmd4 NVARCHAR(MAX) =
     N'CREATE USER [' + @principal_name_4 + N'] WITH SID = ' + @castClientId_4 + N', TYPE = E;';
-EXEC (@cmd);
+EXEC (@cmd4);
 
 DECLARE @cmdRole7 NVARCHAR(MAX) =
     N'ALTER ROLE db_datareader ADD MEMBER [' + @principal_name_4 + N'];';
@@ -73,9 +73,9 @@ DECLARE @clientId_5 UNIQUEIDENTIFIER = '__ACA5_CLIENT_ID__';
 DECLARE @castClientId_5 NVARCHAR(MAX) =
     CONVERT(VARCHAR(MAX), CONVERT(VARBINARY(16), @clientId_5), 1);
 
-DECLARE @cmd NVARCHAR(MAX) =
+DECLARE @cmd5 NVARCHAR(MAX) =
     N'CREATE USER [' + @principal_name_5 + N'] WITH SID = ' + @castClientId_5 + N', TYPE = E;';
-EXEC (@cmd);
+EXEC (@cmd5);
 
 DECLARE @cmdRole9 NVARCHAR(MAX) =
     N'ALTER ROLE db_datareader ADD MEMBER [' + @principal_name_5 + N'];';
